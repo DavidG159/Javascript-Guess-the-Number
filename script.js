@@ -3,7 +3,7 @@ let score = 20;
 let highscore = 0;
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
 
-
+//reset function
 document.querySelector('.again').addEventListener('click',
     function () {
         // location.reload();
@@ -13,18 +13,17 @@ document.querySelector('.again').addEventListener('click',
         document.querySelector('.score').textContent = score;
         document.querySelector('.message').textContent = 'Start guessing...';
         document.querySelector('.number').style.width = '15rem';
-        document.querySelector('.number').textContent = '?';
+        document.querySelector('.ques').textContent = '?';
         document.querySelector('.guess').value = '';
         document.querySelector('.guess').disabled = false;
-
-
+        document.querySelector('.ques').style.animation = 'float 3s ease-in-out infinite';
 
 
 
     }
 );
 
-
+//check button
 document.querySelector('.check').addEventListener('click',
     function () {
         const guess = Number(document.querySelector('.guess').value);
@@ -37,10 +36,12 @@ document.querySelector('.check').addEventListener('click',
             document.querySelector('.message').textContent = 'Correct Number! 🎉 ';
             (highscore < score) ? highscore = score : highscore = highscore;
             document.querySelector('.highscore').textContent = highscore;
-            document.querySelector('.number').textContent = secretNumber;
+            document.querySelector('.ques').textContent = secretNumber;
             document.querySelector('body').style.backgroundColor = '#60b347';
             document.querySelector('.number').style.width = '30rem';
             document.querySelector('.guess').disabled = true;
+
+            document.querySelector('.ques').classList.add('stop-animation');
 
 
             //When player guess a high number
@@ -72,3 +73,11 @@ document.querySelector('.check').addEventListener('click',
             }
         }
     });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const bgMusic = document.querySelector('.bgm');
+    bgMusic.volume = 0.1;
+
+
+});

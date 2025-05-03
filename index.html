@@ -12,10 +12,12 @@
 
 <body>
   <header>
-    <h1>Guess My Number!</h1>
+    <h1>Guess The Number!</h1>
     <p class="between">(Between 1 and 20)</p>
-    <button class="btn again">Again!</button>
-    <div class="number">?</div>
+    <button class="btn again">Reset</button>
+    <div class="number">
+      <div class="ques">?</div>
+    </div>
   </header>
   <main>
     <section class="left">
@@ -31,6 +33,10 @@
     </section>
   </main>
   <script src="script.js"></script>
+
+  <audio class="bgm" hidden controls autoplay loop>
+    <source src="bgm.mp3" type="audio/mpeg">
+  </audio>
 </body>
 
 </html>
