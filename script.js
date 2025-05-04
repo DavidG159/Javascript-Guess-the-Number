@@ -2,10 +2,19 @@
 let score = 20;
 let highscore = 0;
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
+//const button = document.querySelector('.check');
+const wrong = new Audio('wrong.mp3');
+const correct = new Audio('correct.mp3');
+const reset = new Audio('reset.mp3');
+const gameover = new Audio('gameover.mp3');
+const bgm = new Audio('bgm.mp3');
+
+
 
 //reset function
 document.querySelector('.again').addEventListener('click',
     function () {
+        console.log('test');
         // location.reload();
         secretNumber = Math.trunc(Math.random() * 20) + 1;
         document.querySelector('body').style.backgroundColor = '#222';
@@ -16,8 +25,9 @@ document.querySelector('.again').addEventListener('click',
         document.querySelector('.ques').textContent = '?';
         document.querySelector('.guess').value = '';
         document.querySelector('.guess').disabled = false;
+        document.querySelector('.ques').classList.remove('stop-animation');
         document.querySelector('.ques').style.animation = 'float 3s ease-in-out infinite';
-
+        reset.play();
 
 
     }
@@ -31,6 +41,8 @@ document.querySelector('.check').addEventListener('click',
         //when player inputs No Number
         if (!guess) {
             document.querySelector('.message').textContent = 'No Number! 😒';
+            wrong.play();
+
             //When player wins 
         } else if (guess === secretNumber) {
             document.querySelector('.message').textContent = 'Correct Number! 🎉 ';
@@ -40,7 +52,7 @@ document.querySelector('.check').addEventListener('click',
             document.querySelector('body').style.backgroundColor = '#60b347';
             document.querySelector('.number').style.width = '30rem';
             document.querySelector('.guess').disabled = true;
-
+            correct.play();
             document.querySelector('.ques').classList.add('stop-animation');
 
 
@@ -50,6 +62,7 @@ document.querySelector('.check').addEventListener('click',
                 document.querySelector('.message').textContent = 'Number Too High!';
                 score = score - 1;
                 document.querySelector('.score').textContent = score;
+                wrong.play();
 
             } else {
                 document.querySelector('.message').textContent = 'You Lost! Game Over!';
@@ -57,6 +70,8 @@ document.querySelector('.check').addEventListener('click',
                 document.querySelector('.number').textContent = secretNumber;
                 document.querySelector('.number').style.width = '30rem';
                 document.querySelector('body').style.backgroundColor = '#AA4A44';
+                document.querySelector('.ques').classList.add('stop-animation');
+                gameover.play();
             }
             //When Player guess a low number
         } else if (guess < secretNumber) {
@@ -64,12 +79,15 @@ document.querySelector('.check').addEventListener('click',
                 document.querySelector('.message').textContent = 'Number Too Low...';
                 score = score - 1;
                 document.querySelector('.score').textContent = score;
+                wrong.play();
             } else {
                 document.querySelector('.message').textContent = 'You Lost! Game Over!';
                 document.querySelector('.score').textContent = 0;
-                document.querySelector('.number').textContent = secretNumber;
+                document.querySelector('.ques').textContent = secretNumber;
                 document.querySelector('.number').style.width = '30rem';
                 document.querySelector('body').style.backgroundColor = '#AA4A44';
+                document.querySelector('.ques').classList.add('stop-animation');
+                gameover.play();
             }
         }
     });
